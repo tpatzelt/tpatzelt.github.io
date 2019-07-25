@@ -1,3 +1,3 @@
-## Welcome
+## Nothing is here yet.
 
-![partykaktus](tpatzelt.github.io/blog/assets/image.png)
+
