@@ -1,3 +1,3 @@
 ## Welcome
 
-![partykaktus](tpatzelt.github.io/blog/assets/image.png)
+![El Partykaktus](tpatzelt.github.io/blog/assets/partykaktus.jpg)
