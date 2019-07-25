@@ -1,3 +1,3 @@
 ## Welcome
 
-![El Partykaktus](https://tpatzelt.github.io/blog/assets/partykatkus.jpg)
+![El Partykaktus](https://tpatzelt.github.io/blog/assets/partykaktus.jpg)
