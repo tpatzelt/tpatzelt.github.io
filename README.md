@@ -1,3 +1,3 @@
 ## Welcome
 
-There is a [website](www.tim-p.eu).
+There is a [website](http://www.tim-p.eu).
