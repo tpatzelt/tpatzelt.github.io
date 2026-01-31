@@ -88,6 +88,22 @@
         </a>
       {% endif %}
 
+        {% if site.scholar_url != null %}
+          <a class="social-link scholar" aria-label="My Google Scholar" target="_blank" rel="noreferrer"
+            href="{{site.scholar_url}}">
+            <svg viewBox="0 0 200 200" class="circle">
+              <circle cx="100" cy="100" r="80" />
+            </svg>
+            <div class="social">
+              <svg class="social-svg" viewBox="0 0 48 48">
+                <!-- Replace with a Google Scholar SVG icon if available -->
+                <text x="12" y="32" font-size="18" fill="#4285F4">GS</text>
+              </svg>
+            </div>
+            <span class="label">Scholar</span>
+          </a>
+        {% endif %}
+
       {% if site.twitter_username != null %}
         <a class="social-link twitter" aria-label="My Twitter" target="_blank"
           rel="noreferrer" href="https://twitter.com/{{site.twitter_username}}"
