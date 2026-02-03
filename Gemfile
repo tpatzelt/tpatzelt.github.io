@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 
-gem "dotenv"
-gem "github-pages"
-gem "jekyll"
-gem "jekyll-github-metadata"
+gem "jekyll", "~> 4.3"
+
+group :jekyll_plugins do
+  gem "jekyll-seo-tag"
+end
