@@ -4,8 +4,11 @@
 
 /* CSS Variables */
 :root {
-  --bg-dark: #0a0a0f;
+  --bg-dark: #020207;
   --bg-card: rgba(255, 255, 255, 0.03);
+  --bg-x: 0px;
+  --bg-y: 0px;
+  --bg-rot: 0deg;
   
   /* Neon-Pastel Palette */
   --neon-pink: #ff6b9d;
@@ -63,21 +66,74 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: 
-    radial-gradient(ellipse at 20% 20%, rgba(199, 113, 237, 0.15) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 80%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
-    radial-gradient(ellipse at 40% 60%, rgba(255, 107, 157, 0.1) 0%, transparent 50%),
-    radial-gradient(ellipse at 60% 30%, rgba(100, 255, 218, 0.08) 0%, transparent 40%);
-  animation: gradientShift 15s ease-in-out infinite;
+  background:
+    radial-gradient(ellipse at 10% 20%, rgba(255, 107, 157, 0.16) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 15%, rgba(102, 126, 234, 0.14) 0%, transparent 52%),
+    radial-gradient(ellipse at 20% 90%, rgba(100, 255, 218, 0.12) 0%, transparent 58%),
+    radial-gradient(ellipse at 85% 85%, rgba(199, 113, 237, 0.14) 0%, transparent 54%),
+    conic-gradient(from 0deg at 50% 50%, rgba(255, 107, 157, 0.04), rgba(199, 113, 237, 0.05), rgba(102, 126, 234, 0.04), rgba(100, 255, 218, 0.05), rgba(255, 107, 157, 0.04));
+  background-size: 220% 220%, 200% 200%, 240% 240%, 220% 220%, 140% 140%;
+  animation: gradientShift 5s ease-in-out infinite;
+  transform: translate3d(var(--bg-x), var(--bg-y), 0) rotate(var(--bg-rot));
   z-index: -2;
 }
 
+.gradient-bg::before,
+.gradient-bg::after {
+  content: '';
+  position: absolute;
+  inset: -25%;
+  background:
+    radial-gradient(closest-side, rgba(255, 107, 157, 0.22), transparent 70%),
+    radial-gradient(closest-side, rgba(100, 255, 218, 0.2), transparent 68%),
+    radial-gradient(closest-side, rgba(199, 113, 237, 0.2), transparent 72%),
+    radial-gradient(closest-side, rgba(102, 126, 234, 0.18), transparent 74%);
+  filter: blur(22px) saturate(1.4) contrast(1.05);
+  opacity: 0.75;
+  mix-blend-mode: screen;
+  animation: auroraDrift 9s linear infinite;
+  pointer-events: none;
+}
+
+.gradient-bg::after {
+  inset: -35%;
+  opacity: 0.6;
+  filter: blur(28px) saturate(1.5) brightness(1.05);
+  animation: auroraDrift 11s linear infinite reverse;
+}
+
 @keyframes gradientShift {
-  0%, 100% {
-    transform: scale(1) rotate(0deg);
+  0% {
+    background-position: 0% 50%, 100% 0%, 0% 100%, 100% 100%, 0% 0%;
+    filter: hue-rotate(0deg) saturate(1.4) brightness(1.05);
+  }
+  25% {
+    background-position: 100% 50%, 0% 100%, 100% 0%, 0% 0%, 100% 100%;
+    filter: hue-rotate(60deg) saturate(1.8) brightness(1.12);
   }
   50% {
-    transform: scale(1.1) rotate(3deg);
+    background-position: 0% 50%, 100% 0%, 0% 100%, 100% 100%, 0% 0%;
+    filter: hue-rotate(140deg) saturate(1.6) brightness(1.1);
+  }
+  75% {
+    background-position: 100% 50%, 0% 100%, 100% 0%, 0% 0%, 100% 100%;
+    filter: hue-rotate(220deg) saturate(1.9) brightness(1.15);
+  }
+  100% {
+    background-position: 0% 50%, 100% 0%, 0% 100%, 100% 100%, 0% 0%;
+    filter: hue-rotate(360deg) saturate(1.4) brightness(1.05);
+  }
+}
+
+@keyframes auroraDrift {
+  0% {
+    transform: translate3d(-5%, -2%, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(6%, 4%, 0) rotate(6deg);
+  }
+  100% {
+    transform: translate3d(-5%, -2%, 0) rotate(12deg);
   }
 }
 
@@ -90,8 +146,21 @@ body {
   height: 100%;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   opacity: 0.03;
+  animation: noiseShift 1.5s steps(2) infinite;
   pointer-events: none;
   z-index: -1;
+}
+
+.noise::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 107, 157, 0.05) 0 1px, transparent 1px 140px),
+    repeating-linear-gradient(0deg, rgba(100, 255, 218, 0.04) 0 1px, transparent 1px 140px);
+  mix-blend-mode: screen;
+  opacity: 0.2;
+  animation: gridDrift 6s linear infinite;
 }
 
 /* ============================================
@@ -237,17 +306,34 @@ body {
   font-size: clamp(2.5rem, 8vw, 5rem);
   font-weight: 700;
   margin-bottom: 1.5rem;
+
+@keyframes gridDrift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-3%, -2%, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes noiseShift {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-1%, 1%, 0);
+  }
+}
   position: relative;
   display: inline-block;
 }
 
 .name-text {
-  background: var(--gradient-main);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: shimmer 3s ease-in-out infinite;
-  background-size: 200% 200%;
+  color: var(--text-secondary);
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
 }
 
 @keyframes shimmer {
@@ -438,8 +524,8 @@ body {
   align-items: center;
   gap: 0.75rem;
   padding: 1rem 2rem;
-  background: var(--gradient-main);
-  border: none;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
   color: white;
   text-decoration: none;
@@ -450,15 +536,16 @@ body {
   overflow: hidden;
   transition: var(--transition-smooth);
   box-shadow: 
-    0 4px 15px rgba(255, 107, 157, 0.3),
-    0 0 40px rgba(199, 113, 237, 0.2);
+    0 0 20px rgba(255, 107, 157, 0.2),
+    0 0 35px rgba(102, 126, 234, 0.15);
 }
 
 .download-btn:hover {
   transform: translateY(-3px) scale(1.02);
+  border-color: rgba(255, 255, 255, 0.5);
   box-shadow: 
-    0 8px 30px rgba(255, 107, 157, 0.4),
-    0 0 60px rgba(199, 113, 237, 0.3);
+    0 10px 35px rgba(255, 107, 157, 0.25),
+    0 0 70px rgba(102, 126, 234, 0.25);
 }
 
 .download-btn:active {
