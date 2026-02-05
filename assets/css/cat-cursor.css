@@ -1,0 +1,123 @@
+/* ============================================
+   WALKING CAT CURSOR
+   ============================================ */
+
+/* The cat sprite element */
+.cat {
+  position: fixed;
+  width: 64px;
+  height: 64px;
+  pointer-events: none;
+  z-index: 99999;
+  background-repeat: no-repeat;
+  image-rendering: auto;
+  transform-origin: center center;
+  transition: left 0.1s ease-out, top 0.1s ease-out;
+  /* Start hidden until positioned */
+  opacity: 0;
+}
+
+.cat.visible {
+  opacity: 1;
+}
+
+/* Walking animation: horizontal sprite sheet */
+.cat.walking {
+  background-image: url("/assets/walking_cat_sprite.png");
+  animation: cat-walk 600ms steps(6) infinite;
+  background-size: auto 64px; /* 6 frames horizontally */
+}
+
+/* Flying animation after typing completes */
+.cat.flying {
+  background-image: url("/assets/walking_cat_sprite.png");
+  /* Use walking sprite for flying too, or create a separate flying sprite */
+  animation: cat-fly-sprite 400ms steps(6) infinite;
+  background-size: auto 64px;
+  /* Position will be managed by JS */
+}
+
+/* Walking sprite animation - cycles through frames */
+@keyframes cat-walk {
+  from { 
+    background-position: 0 0; 
+  }
+  to { 
+    background-position: -384px 0; /* -64px * 6 frames */
+  }
+}
+
+/* Flying sprite animation */
+@keyframes cat-fly-sprite {
+  from { 
+    background-position: 0 0; 
+  }
+  to { 
+    background-position: -384px 0; /* -64px * 6 frames */
+  }
+}
+
+/* Flying path - no longer used, managed by JS */
+
+/* Hidden marker for caret position measurement */
+#caret-marker {
+  display: inline;
+  position: relative;
+  width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Hide the default typing cursor when cat is active */
+.typing-wrapper.cat-active .typing-cursor {
+  display: none;
+}
+
+/* Accessibility: Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .cat.walking,
+  .cat.flying {
+    animation: none !important;
+    transition: left 0.3s ease-out, top 0.3s ease-out;
+  }
+  
+  .cat.flying {
+    /* Keep cat visible but stationary */
+    left: 50% !important;
+    top: 20% !important;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .cat {
+    width: 48px;
+    height: 48px;
+    background-size: auto 48px;
+  }
+  
+  .cat.walking {
+    animation: cat-walk 600ms steps(6) infinite;
+  }
+  
+  @keyframes cat-walk {
+    from { 
+      background-position: 0 0; 
+    }
+    to { 
+      background-position: -288px 0; /* -48px * 6 frames */
+    }
+  }
+  
+  @keyframes cat-fly-sprite {
+    from { 
+      background-position: 0 0; 
+    }
+    to { 
+      background-position: -288px 0; /* -48px * 6 frames */
+    }
+  }
+}
