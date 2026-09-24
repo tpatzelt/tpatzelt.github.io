@@ -1,13 +1,27 @@
 /* ============================================
-   SIMPLE BLACK & WHITE THEME
+   ARTSY DARK THEME
    ============================================ */
 
 /* CSS Variables */
 :root {
+  /* Background */
+  --bg: #0a0b14;
+  --bg-elevated: #14172c;
+
   /* Text */
-  --text-primary: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.8);
-  
+  --text-primary: #f5f3ff;
+  --text-secondary: #b4b8d6;
+
+  /* Accents */
+  --accent-violet: #9d7bff;
+  --accent-cyan: #4fd8e6;
+  --accent-pink: #ff6fb0;
+  --accent-violet-soft: rgba(157, 123, 255, 0.16);
+  --accent-cyan-soft: rgba(79, 216, 230, 0.14);
+
+  /* Borders */
+  --border: rgba(180, 184, 214, 0.25);
+
   /* Fonts */
   --font-main: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
@@ -26,7 +40,10 @@ html {
 
 body {
   font-family: var(--font-main);
-  background: #000000;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% -10%, var(--accent-violet-soft), transparent 60%),
+    radial-gradient(ellipse 80% 50% at 80% 110%, var(--accent-cyan-soft), transparent 60%),
+    var(--bg-elevated);
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
@@ -132,7 +149,7 @@ body {
   align-items: center;
   gap: 0.75rem;
   padding: 1rem 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid var(--border);
   border-radius: 100px;
   margin-bottom: 2.5rem;
 }
@@ -140,7 +157,7 @@ body {
 .status-dot {
   width: 10px;
   height: 10px;
-  background: var(--text-primary);
+  background: var(--accent-cyan);
   border-radius: 50%;
 }
 
@@ -166,7 +183,7 @@ body {
   align-items: center;
   gap: 0.5rem;
   padding: 0.875rem 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid var(--border);
   border-radius: 12px;
   color: var(--text-primary);
   text-decoration: none;
@@ -191,9 +208,9 @@ body {
   align-items: center;
   gap: 0.75rem;
   padding: 1rem 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid var(--border);
   border-radius: 12px;
-  color: white;
+  color: var(--text-primary);
   text-decoration: none;
   font-weight: 600;
   font-size: 1rem;
@@ -220,7 +237,7 @@ body {
 }
 
 .heart {
-  color: var(--text-primary);
+  color: var(--accent-pink);
   display: inline-block;
 }
 
@@ -232,24 +249,24 @@ body {
   .hero {
     padding: 1.5rem;
   }
-  
+
   .greeting {
     font-size: 1.25rem;
   }
-  
+
   .typing-wrapper {
     font-size: 1rem;
   }
-  
+
   .social-links {
     gap: 0.75rem;
   }
-  
+
   .social-btn {
     padding: 0.75rem 1.25rem;
     font-size: 0.9rem;
   }
-  
+
   .download-btn {
     padding: 0.875rem 1.75rem;
   }
@@ -260,13 +277,13 @@ body {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .social-btn {
     width: 100%;
     max-width: 200px;
     justify-content: center;
   }
-  
+
   .status-card {
     padding: 0.875rem 1.25rem;
   }
@@ -275,12 +292,12 @@ body {
 /* Focus styles */
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--text-primary);
+  outline: 2px solid var(--accent-cyan);
   outline-offset: 3px;
 }
 
 /* Selection */
 ::selection {
-  background: var(--text-primary);
-  color: #000000;
+  background: var(--accent-violet);
+  color: var(--bg);
 }
