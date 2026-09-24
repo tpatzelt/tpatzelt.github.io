@@ -43,7 +43,7 @@ body {
   background:
     radial-gradient(ellipse 80% 50% at 20% -10%, var(--accent-violet-soft), transparent 60%),
     radial-gradient(ellipse 80% 50% at 80% 110%, var(--accent-cyan-soft), transparent 60%),
-    var(--bg-elevated);
+    var(--bg);
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
@@ -429,10 +429,6 @@ body {
 @media (max-width: 768px) {
   .hero {
     padding: 1.5rem;
-  }
-
-  .greeting {
-    font-size: 1.25rem;
   }
 
   .typing-wrapper {
