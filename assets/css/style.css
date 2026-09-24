@@ -146,25 +146,6 @@ body {
   text-align: center;
 }
 
-/* Greeting */
-.greeting {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
-}
-
-.wave {
-  display: inline-block;
-}
-
-.hi {
-  color: var(--text-secondary);
-  font-weight: 400;
-}
-
 /* Name */
 .name {
   font-size: clamp(2.5rem, 8vw, 5rem);
@@ -174,12 +155,31 @@ body {
   display: inline-block;
 }
 
-.name-text {
-  color: var(--text-primary);
+.name::before {
+  content: '# machine_learning_engineer';
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: var(--accent-cyan);
+  opacity: 0.8;
+  margin-bottom: 0.75rem;
 }
 
-.cursor-blink {
-  display: none;
+.name-text {
+  background: linear-gradient(135deg, var(--accent-violet) 0%, var(--text-primary) 45%, var(--accent-cyan) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+  .name-text {
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    color: var(--text-primary);
+  }
 }
 
 /* Typing effect */
@@ -193,18 +193,27 @@ body {
   font-size: 1.25rem;
 }
 
-.typing-label {
-  color: var(--text-primary);
-  font-weight: 500;
-}
-
 .typing-text {
   color: var(--text-secondary);
   min-width: 1ch;
 }
 
 .typing-cursor {
-  display: none;
+  display: inline-block;
+  color: var(--accent-cyan);
+  font-weight: 400;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typing-cursor {
+    animation: none !important;
+    opacity: 1;
+  }
 }
 
 /* Status card */
