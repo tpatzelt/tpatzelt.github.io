@@ -225,6 +225,12 @@ body {
   border: 1px solid var(--border);
   border-radius: 100px;
   margin-bottom: 2.5rem;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.status-card:hover {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 0 4px var(--accent-cyan-soft);
 }
 
 .status-dot {
@@ -232,6 +238,20 @@ body {
   height: 10px;
   background: var(--accent-cyan);
   border-radius: 50%;
+  box-shadow: 0 0 0 0 var(--accent-cyan-soft);
+  animation: pulse-dot 2.4s ease-out infinite;
+}
+
+@keyframes pulse-dot {
+  0% { box-shadow: 0 0 0 0 var(--accent-cyan-soft); }
+  70% { box-shadow: 0 0 0 8px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-dot {
+    animation: none;
+  }
 }
 
 .status-text {
@@ -262,6 +282,7 @@ body {
   text-decoration: none;
   font-weight: 500;
   font-size: 0.95rem;
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
 }
 
 .social-btn svg {
@@ -270,6 +291,44 @@ body {
 
 .btn-label {
   color: var(--text-primary);
+}
+
+.social-btn.github:hover,
+.social-btn.github:focus-visible {
+  border-color: var(--accent-violet);
+  color: var(--accent-violet);
+  box-shadow: 0 8px 24px -12px var(--accent-violet-soft);
+}
+
+.social-btn.linkedin:hover,
+.social-btn.linkedin:focus-visible {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+  box-shadow: 0 8px 24px -12px var(--accent-cyan-soft);
+}
+
+.social-btn.email:hover,
+.social-btn.email:focus-visible {
+  border-color: var(--accent-pink);
+  color: var(--accent-pink);
+  box-shadow: 0 8px 24px -12px rgba(255, 111, 176, 0.18);
+}
+
+.social-btn:hover,
+.social-btn:focus-visible {
+  transform: translateY(-3px);
+}
+
+.social-btn:hover .btn-label,
+.social-btn:focus-visible .btn-label {
+  color: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .social-btn:hover,
+  .social-btn:focus-visible {
+    transform: none;
+  }
 }
 
 /* ============================================
