@@ -279,6 +279,18 @@ then
   fail=1
 fi
 
+# 15. assets/css/style.css must not use 100vw or a fixed width/min-width of
+# 400px or more (max-width is fine), so nothing forces a horizontal
+# scrollbar at a 400px viewport.
+if [ -f assets/css/style.css ]; then
+  if grep -q '100vw' assets/css/style.css; then
+    fail_msg "assets/css/style.css: must not use 100vw (causes horizontal overflow at narrow widths)"
+  fi
+  if grep -Eq '(^|[^-])(min-)?width:\s*([4-9][0-9]{2}|[0-9]{4,})px' assets/css/style.css; then
+    fail_msg "assets/css/style.css: must not set width or min-width of 400px or more (max-width is fine)"
+  fi
+fi
+
 if [ "$fail" -ne 0 ]; then
   exit 1
 fi
