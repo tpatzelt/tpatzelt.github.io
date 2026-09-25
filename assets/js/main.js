@@ -27,16 +27,6 @@
     if (cursor) {
       cursor.style.animation = 'blink 1s step-end infinite';
     }
-
-    // Notify cat cursor so it stays in sync with the final caret position
-    if (window.catCursor && window.catCursor.updatePosition) {
-      window.catCursor.updatePosition();
-    }
-
-    // Trigger cat flying mode immediately without delay
-    if (window.catCursor && window.catCursor.startFlying) {
-      window.catCursor.startFlying();
-    }
   }
 
   function typeInstant() {
@@ -56,11 +46,6 @@
     if (charIndex < text.length) {
       typingElement.textContent += text.charAt(charIndex);
       charIndex++;
-
-      // Notify cat cursor to update position
-      if (window.catCursor && window.catCursor.updatePosition) {
-        window.catCursor.updatePosition();
-      }
 
       setTimeout(type, typingSpeed);
     } else {

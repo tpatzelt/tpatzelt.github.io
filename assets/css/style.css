@@ -155,18 +155,6 @@ body {
   display: inline-block;
 }
 
-.name::before {
-  content: '# machine_learning_engineer';
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  color: var(--accent-cyan);
-  opacity: 0.8;
-  margin-bottom: 0.75rem;
-}
-
 .name-text {
   background: linear-gradient(135deg, var(--accent-violet) 0%, var(--text-primary) 45%, var(--accent-cyan) 100%);
   -webkit-background-clip: text;
