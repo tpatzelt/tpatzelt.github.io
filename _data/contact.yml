@@ -1,0 +1,13 @@
+# Order and labels for the Contact section. Values are resolved from
+# site.author.* in index.html; this file only says what to show and how.
+- kind: email
+  label: Email
+- kind: github
+  label: GitHub
+  external: true
+- kind: linkedin
+  label: LinkedIn
+  external: true
+- kind: cv
+  label: Download CV
+  download: true
