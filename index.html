@@ -2,21 +2,35 @@
 layout: default
 ---
 
-<main class="hero">
-  <div class="container">
-    <div class="content">
-      <h1 class="name">
-        <span class="name-text">{{ site.author.name }}</span>
-      </h1>
+<main>
+  <section class="hero">
+    <div class="container">
+      <div class="content">
+        <h1 class="name">
+          <span class="name-text">{{ site.author.name }}</span>
+        </h1>
 
-      <p class="role">{{ site.author.typing_text }}</p>
+        <p class="role">{{ site.author.typing_text }}</p>
+      </div>
+    </div>
+  </section>
 
-      <nav class="links" aria-label="Profile links">
+  <section id="about" class="section" aria-labelledby="about-title">
+    <div class="container narrow">
+      <h2 id="about-title">About</h2>
+      <p class="placeholder">[Placeholder — about statement to be written by Tim: focus areas, current role, what he builds.]</p>
+    </div>
+  </section>
+
+  <section id="contact" class="section" aria-labelledby="contact-title">
+    <div class="container narrow">
+      <h2 id="contact-title">Contact</h2>
+      <nav class="links" aria-label="Contact links">
+        <a href="mailto:{{ site.author.email }}">Email</a>
         <a href="https://github.com/{{ site.author.github }}" target="_blank" rel="noopener">GitHub</a>
         <a href="https://linkedin.com/in/{{ site.author.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="mailto:{{ site.author.email }}">Email</a>
         <a href="{{ '/assets/cv.pdf' | relative_url }}" download>Download CV</a>
       </nav>
     </div>
-  </div>
+  </section>
 </main>
