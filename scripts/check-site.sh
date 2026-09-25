@@ -121,6 +121,18 @@ for f in index.html _layouts/*.html _includes/*.html; do
   fi
 done
 
+# 11. _data/projects.yml must exist and hold at least one entry, and index.html
+# must render it via site.data.projects rather than copy-pasted markup.
+if [ ! -f _data/projects.yml ]; then
+  fail_msg "missing required file: _data/projects.yml"
+elif ! grep -Eq '^\s*-\s*title:' _data/projects.yml; then
+  fail_msg "_data/projects.yml must contain at least one '- title:' entry"
+fi
+
+if ! grep -q 'site.data.projects' index.html; then
+  fail_msg "index.html must loop over site.data.projects"
+fi
+
 if [ "$fail" -ne 0 ]; then
   exit 1
 fi

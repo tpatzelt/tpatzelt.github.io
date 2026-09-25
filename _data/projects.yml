@@ -1,0 +1,7 @@
+# Selected-work entries rendered by the "work" section in index.html.
+# Required: title, summary. Optional: year, url, tags.
+# Leave optional keys out entirely rather than setting them to '' or [].
+- title: "[Placeholder project 1]"
+  summary: "[Placeholder — project description to be supplied by Tim]"
+- title: "[Placeholder project 2]"
+  summary: "[Placeholder — project description to be supplied by Tim]"

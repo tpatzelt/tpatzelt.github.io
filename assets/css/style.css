@@ -164,6 +164,44 @@ body {
   font-style: italic;
 }
 
+.work-entry {
+  margin-top: 2.5rem;
+}
+
+.work-entry:first-of-type {
+  margin-top: 0;
+}
+
+.work-entry h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.work-entry .work-meta {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.work-entry .work-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  list-style: none;
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.work-entry a {
+  display: inline-block;
+  margin-top: 0.75rem;
+  color: var(--accent);
+  font-size: 0.95rem;
+}
+
 /* ============================================
    RESPONSIVE DESIGN
    ============================================ */

@@ -22,6 +22,25 @@ layout: default
     </div>
   </section>
 
+  <section id="work" class="section" aria-labelledby="work-title">
+    <div class="container narrow">
+      <h2 id="work-title">Selected work</h2>
+      {% for project in site.data.projects %}
+      <article class="work-entry">
+        <h3>{{ project.title }}</h3>
+        {% if project.year %}<p class="work-meta">{{ project.year }}</p>{% endif %}
+        <p>{{ project.summary }}</p>
+        {% if project.tags %}
+        <ul class="work-tags">
+          {% for tag in project.tags %}<li>{{ tag }}</li>{% endfor %}
+        </ul>
+        {% endif %}
+        {% if project.url %}<a href="{{ project.url }}" target="_blank" rel="noopener">View project</a>{% endif %}
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
   <section id="contact" class="section" aria-labelledby="contact-title">
     <div class="container narrow">
       <h2 id="contact-title">Contact</h2>
