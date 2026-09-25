@@ -133,6 +133,152 @@ if ! grep -q 'site.data.projects' index.html; then
   fail_msg "index.html must loop over site.data.projects"
 fi
 
+# 12. heading order in index.html: the first heading must be <h1>, and no
+# heading may skip more than one level deeper than the previous heading.
+if ! python3 - index.html <<'PY'
+import re, sys
+
+text = open(sys.argv[1], encoding='utf-8').read()
+# strip Liquid tags first so only literal HTML headings are inspected.
+text = re.sub(r'\{%-?.*?-?%\}', '', text, flags=re.DOTALL)
+text = re.sub(r'\{\{-?.*?-?\}\}', '', text, flags=re.DOTALL)
+
+levels = [int(m.group(1)) for m in re.finditer(r'<h([1-6])\b', text, re.IGNORECASE)]
+
+failed = []
+if not levels or levels[0] != 1:
+    failed.append("index.html: the first heading on the page must be <h1>")
+
+prev = levels[0] if levels else 1
+for level in levels[1:]:
+    if level > prev + 1:
+        failed.append(
+            f"index.html: heading level jumps from h{prev} to h{level}, "
+            "skipping a level"
+        )
+    prev = level
+
+for msg in failed:
+    print(f"check-site: {msg}")
+
+sys.exit(1 if failed else 0)
+PY
+then
+  fail=1
+fi
+
+# 13. every interactive element needs a visible :focus-visible outline;
+# style.css must cover at least a, button and summary, and must never turn
+# the outline off for a focus-visible rule.
+if ! python3 - assets/css/style.css <<'PY'
+import re, sys
+
+text = open(sys.argv[1], encoding='utf-8').read()
+text = re.sub(r'/\*.*?\*/', '', text, flags=re.DOTALL)
+
+failed = []
+required = {'a', 'button', 'summary'}
+covered = set()
+
+for selector, body in re.findall(r'([^{}]+)\{([^{}]*)\}', text):
+    if 'focus-visible' not in selector:
+        continue
+    m = re.search(r'outline\s*:\s*([^;]+);', body)
+    if not m:
+        continue
+    value = m.group(1).strip().lower()
+    if value in ('none', '0'):
+        failed.append(
+            f"assets/css/style.css: a :focus-visible rule disables the "
+            f"outline ({selector.strip()})"
+        )
+        continue
+    for tag in required:
+        if re.search(r'(?<![\w-])' + tag + r'\s*:focus-visible', selector):
+            covered.add(tag)
+
+missing = required - covered
+if missing:
+    failed.append(
+        "assets/css/style.css: :focus-visible must set a visible outline for "
+        + ', '.join(sorted(missing))
+    )
+
+for msg in failed:
+    print(f"check-site: {msg}")
+
+sys.exit(1 if failed else 0)
+PY
+then
+  fail=1
+fi
+
+# 14. prefers-reduced-motion: reduce must disable transitions and animations
+# and force instant scrolling for every element on the page.
+if ! python3 - assets/css/style.css <<'PY'
+import re, sys
+
+text = open(sys.argv[1], encoding='utf-8').read()
+text = re.sub(r'/\*.*?\*/', '', text, flags=re.DOTALL)
+
+failed = []
+block = None
+start = text.find('@media')
+while start != -1:
+    if re.match(r'@media\s*\(\s*prefers-reduced-motion\s*:\s*reduce\s*\)', text[start:]):
+        brace = text.index('{', start)
+        depth, i = 0, brace
+        while i < len(text):
+            if text[i] == '{':
+                depth += 1
+            elif text[i] == '}':
+                depth -= 1
+                if depth == 0:
+                    break
+            i += 1
+        block = text[brace + 1:i]
+        break
+    start = text.find('@media', start + 1)
+
+if block is None:
+    failed.append(
+        "assets/css/style.css: missing @media (prefers-reduced-motion: reduce) block"
+    )
+else:
+    universal_rule = re.search(r'\*[^{]*\{([^}]*)\}', block)
+    if not universal_rule:
+        failed.append(
+            "assets/css/style.css: prefers-reduced-motion block must apply to a "
+            "universal (*) selector so it disables motion for every element"
+        )
+    else:
+        body = universal_rule.group(1).lower()
+        if not re.search(r'transition\s*:\s*(none|0s?)\b', body):
+            failed.append(
+                "assets/css/style.css: prefers-reduced-motion universal rule "
+                "must set transition: none"
+            )
+        if not re.search(r'animation\s*:\s*(none|0s?)\b', body):
+            failed.append(
+                "assets/css/style.css: prefers-reduced-motion universal rule "
+                "must set animation: none"
+            )
+
+    if not re.search(r'scroll-behavior\s*:\s*auto\b', block.lower()):
+        failed.append(
+            "assets/css/style.css: prefers-reduced-motion block must set "
+            "scroll-behavior: auto"
+        )
+
+for msg in failed:
+    print(f"check-site: {msg}")
+
+sys.exit(1 if failed else 0)
+PY
+then
+  fail=1
+fi
+
 if [ "$fail" -ne 0 ]; then
   exit 1
 fi
