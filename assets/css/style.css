@@ -1,30 +1,27 @@
 /* ============================================
-   ARTSY DARK THEME
+   LIGHT, NEUTRAL THEME
    ============================================ */
 
 /* CSS Variables */
 :root {
   /* Background */
-  --bg: #0a0b14;
-  --bg-elevated: #14172c;
+  --bg: #faf9f6;
+  --bg-elevated: #f1efe9;
 
   /* Text */
-  --text-primary: #f5f3ff;
-  --text-secondary: #b4b8d6;
+  --text-primary: #16161a;
+  --text-secondary: #5c5c66;
 
-  /* Accents */
-  --accent-violet: #9d7bff;
-  --accent-cyan: #4fd8e6;
-  --accent-pink: #ff6fb0;
-  --accent-violet-soft: rgba(157, 123, 255, 0.16);
-  --accent-cyan-soft: rgba(79, 216, 230, 0.14);
+  /* Accent */
+  --accent: #3a5a9c;
+  --accent-soft: rgba(58, 90, 156, 0.14);
 
   /* Borders */
-  --border: rgba(180, 184, 214, 0.25);
+  --border: rgba(22, 22, 26, 0.16);
 
   /* Fonts */
-  --font-main: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 /* Reset & Base */
@@ -40,10 +37,7 @@ html {
 
 body {
   font-family: var(--font-main);
-  background:
-    radial-gradient(ellipse 80% 50% at 20% -10%, var(--accent-violet-soft), transparent 60%),
-    radial-gradient(ellipse 80% 50% at 80% 110%, var(--accent-cyan-soft), transparent 60%),
-    var(--bg);
+  background: var(--bg);
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
@@ -93,24 +87,13 @@ body {
   font-size: 0.85rem;
   font-weight: 400;
   letter-spacing: 0.05em;
-  color: var(--accent-cyan);
-  opacity: 0.8;
+  color: var(--accent);
+  opacity: 0.9;
   margin-bottom: 0.75rem;
 }
 
 .name-text {
-  background: linear-gradient(135deg, var(--accent-violet) 0%, var(--text-primary) 45%, var(--accent-cyan) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-@media (prefers-reduced-motion: reduce), (forced-colors: active) {
-  .name-text {
-    -webkit-background-clip: unset;
-    background-clip: unset;
-    color: var(--text-primary);
-  }
+  color: var(--text-primary);
 }
 
 /* Typing effect */
@@ -131,7 +114,7 @@ body {
 
 .typing-cursor {
   display: inline-block;
-  color: var(--accent-cyan);
+  color: var(--accent);
   font-weight: 400;
 }
 
@@ -160,21 +143,21 @@ body {
 }
 
 .status-card:hover {
-  border-color: var(--accent-cyan);
-  box-shadow: 0 0 0 4px var(--accent-cyan-soft);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
 }
 
 .status-dot {
   width: 10px;
   height: 10px;
-  background: var(--accent-cyan);
+  background: var(--accent);
   border-radius: 50%;
-  box-shadow: 0 0 0 0 var(--accent-cyan-soft);
+  box-shadow: 0 0 0 0 var(--accent-soft);
   animation: pulse-dot 2.4s ease-out infinite;
 }
 
 @keyframes pulse-dot {
-  0% { box-shadow: 0 0 0 0 var(--accent-cyan-soft); }
+  0% { box-shadow: 0 0 0 0 var(--accent-soft); }
   70% { box-shadow: 0 0 0 8px transparent; }
   100% { box-shadow: 0 0 0 0 transparent; }
 }
@@ -224,25 +207,11 @@ body {
   color: var(--text-primary);
 }
 
-.social-btn.github:hover,
-.social-btn.github:focus-visible {
-  border-color: var(--accent-violet);
-  color: var(--accent-violet);
-  box-shadow: 0 8px 24px -12px var(--accent-violet-soft);
-}
-
-.social-btn.linkedin:hover,
-.social-btn.linkedin:focus-visible {
-  border-color: var(--accent-cyan);
-  color: var(--accent-cyan);
-  box-shadow: 0 8px 24px -12px var(--accent-cyan-soft);
-}
-
-.social-btn.email:hover,
-.social-btn.email:focus-visible {
-  border-color: var(--accent-pink);
-  color: var(--accent-pink);
-  box-shadow: 0 8px 24px -12px rgba(255, 111, 176, 0.18);
+.social-btn:hover,
+.social-btn:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 8px 24px -12px var(--accent-soft);
 }
 
 .social-btn:hover,
@@ -285,9 +254,9 @@ body {
 
 .download-btn:hover,
 .download-btn:focus-visible {
-  border-color: var(--accent-cyan);
+  border-color: var(--accent);
   transform: translateY(-3px);
-  box-shadow: 0 10px 30px -12px var(--accent-cyan-soft);
+  box-shadow: 0 10px 30px -12px var(--accent-soft);
 }
 
 .btn-shine {
@@ -297,7 +266,7 @@ body {
   left: -60%;
   width: 40%;
   height: 100%;
-  background: linear-gradient(120deg, transparent, rgba(245, 243, 255, 0.35), transparent);
+  background: linear-gradient(120deg, transparent, rgba(22, 22, 26, 0.06), transparent);
   transform: skewX(-20deg);
   transition: left 0.6s ease;
   pointer-events: none;
@@ -337,13 +306,12 @@ body {
 }
 
 .heart {
-  color: var(--accent-pink);
+  color: var(--accent);
   display: inline-block;
-  transition: transform 0.25s ease, color 0.25s ease;
+  transition: transform 0.25s ease;
 }
 
 .footer:hover .heart {
-  color: var(--accent-violet);
   transform: scale(1.25);
 }
 
@@ -400,12 +368,12 @@ body {
 /* Focus styles */
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--accent-cyan);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
 /* Selection */
 ::selection {
-  background: var(--accent-violet);
+  background: var(--accent);
   color: var(--bg);
 }
