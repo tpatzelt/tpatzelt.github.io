@@ -113,6 +113,14 @@ for f in index.html _layouts/*.html _includes/*.html; do
   fi
 done
 
+# 10. the cat cursor must stay unlinked from index.html, layouts and includes.
+for f in index.html _layouts/*.html _includes/*.html; do
+  [ -f "$f" ] || continue
+  if grep -Eq 'cat-cursor' "$f"; then
+    fail_msg "$f: must not reference cat-cursor"
+  fi
+done
+
 if [ "$fail" -ne 0 ]; then
   exit 1
 fi
