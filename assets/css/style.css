@@ -131,8 +131,13 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .links a {
-    transition: none;
+  *, *::before, *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  html {
+    scroll-behavior: auto !important;
   }
 }
 
@@ -228,7 +233,8 @@ body {
 
 /* Focus styles */
 a:focus-visible,
-button:focus-visible {
+button:focus-visible,
+summary:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
