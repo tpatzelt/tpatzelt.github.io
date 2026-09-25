@@ -105,6 +105,14 @@ then
   fail=1
 fi
 
+# 9. the ambient canvas background and floating-shapes parallax must stay removed.
+for f in index.html _layouts/*.html _includes/*.html; do
+  [ -f "$f" ] || continue
+  if grep -Eq 'background\.js|bg-canvas|floating-shapes' "$f"; then
+    fail_msg "$f: must not reference background.js, bg-canvas or floating-shapes"
+  fi
+done
+
 if [ "$fail" -ne 0 ]; then
   exit 1
 fi
