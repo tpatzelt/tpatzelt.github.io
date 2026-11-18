@@ -18,7 +18,8 @@ layout: default
   <section id="about" class="section" aria-labelledby="about-title">
     <div class="container narrow">
       <h2 id="about-title">About</h2>
-      <p class="placeholder">[Placeholder — about statement to be written by Tim: focus areas, current role, what he builds.]</p>
+      <p>I'm a machine learning engineer in Berlin. These days I build AI systems for the public sector: document pipelines, process automation, decision support. Before that I spent years on the question of how you test a model, and before that on clinical text.</p>
+      <p>I studied cognitive science in Osnabrück and cognitive systems in Potsdam, and wrote my master's thesis on medical concept normalization in a low-resource setting. In my free time I build small things for Berlin and let autonomous agents build them with me overnight. I write about what they get wrong, and what that says about us, on the <a href="{{ site.baseurl }}/blog/">blog</a>.</p>
     </div>
   </section>
 
@@ -38,6 +39,21 @@ layout: default
         {% if project.url %}<a href="{{ project.url }}" target="_blank" rel="noopener">View project</a>{% endif %}
       </article>
       {% endfor %}
+    </div>
+  </section>
+
+  <section id="writing" class="section" aria-labelledby="writing-title">
+    <div class="container narrow">
+      <h2 id="writing-title">Writing</h2>
+      <ul class="post-list">
+        {% for post in site.posts limit:3 %}
+        <li>
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%-d %B %Y" }}</time>
+        </li>
+        {% endfor %}
+      </ul>
+      <p class="more"><a href="{{ site.baseurl }}/blog/">All posts</a></p>
     </div>
   </section>
 

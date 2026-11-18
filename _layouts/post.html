@@ -1,0 +1,35 @@
+---
+layout: default
+---
+
+<main class="post-page">
+  <div class="container narrow">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="{{ site.baseurl }}/">{{ site.author.name }}</a>
+      <span aria-hidden="true">/</span>
+      <a href="{{ site.baseurl }}/blog/">Blog</a>
+    </nav>
+
+    <article class="post">
+      <header class="post-header">
+        <h1>{{ page.title }}</h1>
+        {% if page.subtitle %}<p class="post-subtitle">{{ page.subtitle }}</p>{% endif %}
+        {% assign words = content | number_of_words %}
+        <p class="post-meta">
+          ∵ <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</time>
+          ∴ {{ words | divided_by: 220 | plus: 1 }} min read
+          {% if page.repo %}∞ <a href="https://github.com/{{ site.author.github }}/{{ page.repo }}" target="_blank" rel="noopener">{{ page.repo }}</a>{% endif %}
+        </p>
+      </header>
+
+      <div class="post-body">
+        {{ content }}
+      </div>
+    </article>
+
+    <nav class="post-nav" aria-label="More posts">
+      {% if page.previous %}<a href="{{ page.previous.url | relative_url }}">← {{ page.previous.title }}</a>{% endif %}
+      {% if page.next %}<a href="{{ page.next.url | relative_url }}">{{ page.next.title }} →</a>{% endif %}
+    </nav>
+  </div>
+</main>

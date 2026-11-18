@@ -6,6 +6,8 @@ baseurl: ""
 
 # Build settings
 markdown: kramdown
+timezone: Europe/Berlin
+permalink: /blog/:year/:month/:day/:title/
 exclude:
   - Gemfile
   - Gemfile.lock

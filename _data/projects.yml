@@ -1,7 +1,33 @@
 # Selected-work entries rendered by the "work" section in index.html.
 # Required: title, summary. Optional: year, url, tags.
 # Leave optional keys out entirely rather than setting them to '' or [].
-- title: "[Placeholder project 1]"
-  summary: "[Placeholder — project description to be supplied by Tim]"
-- title: "[Placeholder project 2]"
-  summary: "[Placeholder — project description to be supplied by Tim]"
+- title: "NIGHTSHIFT"
+  year: 2026
+  summary: "An autonomous Claude Code runner that sticks to a plan. Charters go into a queue; a planner breaks them into tasks, workers implement them on branches, deterministic gates and a reviewer decide what merges, and every run is archived with its decisions, digests and cost ledger."
+  tags: [agents, Claude Code, Docker]
+  url: "https://github.com/tpatzelt/nightshift"
+- title: "Wie Berlin radelt"
+  year: 2026
+  summary: "Where and when do Berlin's shared bikes run out? A collector snapshots the nextbike GBFS feed every two minutes, joins weather and district boundaries, and builds a bilingual, nightly-updated write-up with charts and a station map. Bike ids are never stored."
+  tags: [data, DuckDB, GBFS]
+  url: "https://github.com/tpatzelt/berlin-bike-data"
+- title: "Mein Pendel"
+  year: 2026
+  summary: "BVG and S-Bahn disruption alerts for your own commute, sent via Telegram and ntfy, with a small bilingual web app to set up lines, weekdays and delay thresholds."
+  tags: [Python, HAFAS, notifications]
+  url: "https://github.com/tpatzelt/mein-pendel"
+- title: "djcc"
+  year: 2026
+  summary: "A live techno DJ you talk to. A beat-matched, phrase-aligned mixing engine picks records on tempo, key and energy; a Claude agent sits behind the decks, steers the set from conversation and tells you what it did and why."
+  tags: [audio, agents, Claude]
+  url: "https://github.com/tpatzelt/djcc"
+- title: "job-application-agent"
+  year: 2026
+  summary: "An agentic job finder with a plan, act, reflect loop: it searches, triages and scores postings against your CV and runs as a multi-user Telegram bot."
+  tags: [LLM agents, search, evals]
+  url: "https://github.com/tpatzelt/job-application-agent"
+- title: "Medical lay expressions"
+  year: 2023
+  summary: "My master's thesis work: linking lay expressions to medical concepts, that is, medical concept normalization when there is very little labelled data."
+  tags: [NLP, entity linking, healthcare]
+  url: "https://github.com/tpatzelt/medical-lay"

@@ -48,7 +48,8 @@ failed = []
 # 4. no <script src="..."> pointing at an http(s) or protocol-relative URL.
 script_re = re.compile(r'<script\b[^>]*\bsrc\s*=\s*["\']((https?:)?//[^"\']*)["\']', re.IGNORECASE)
 
-# 5. exactly one <h1 across all scanned files.
+# 5. exactly one <h1 across index.html, _layouts/default.html and _includes
+# (the home page), and exactly one in every other page layout.
 h1_count = 0
 
 # 6. balanced Liquid block tags per file.
@@ -67,7 +68,14 @@ for f in files:
     for m in script_re.finditer(text):
         failed.append(f"{f}: external <script src> not allowed: {m.group(1)}")
 
-    h1_count += len(re.findall(r'<h1\b', text, re.IGNORECASE))
+    n = len(re.findall(r'<h1\b', text, re.IGNORECASE))
+    if f.startswith('_layouts/') and f != '_layouts/default.html':
+        # a page layout (post, ...) renders its own page and must carry
+        # exactly one <h1> of its own; it is not part of the home page count.
+        if n != 1:
+            failed.append(f"{f}: page layout must contain exactly one <h1>, found {n}")
+    else:
+        h1_count += n
 
     for open_name, close_name in tag_pairs:
         opens = len(open_re[open_name].findall(text))
@@ -83,9 +91,10 @@ for f in files:
         if not os.path.isfile(target):
             failed.append(f"{f}: relative_url reference to missing file: {m.group(1)}")
 
+home_files = [f for f in files if not (f.startswith('_layouts/') and f != '_layouts/default.html')]
 if h1_count != 1:
     failed.append(
-        f"expected exactly one <h1> across {', '.join(files)}, found {h1_count}"
+        f"expected exactly one <h1> across {', '.join(home_files)}, found {h1_count}"
     )
 
 # 8. every _data/*.yml file (if any) is non-empty and has no tab characters.
@@ -290,6 +299,15 @@ if [ -f assets/css/style.css ]; then
     fail_msg "assets/css/style.css: must not set width or min-width of 400px or more (max-width is fine)"
   fi
 fi
+
+# 16. no bracketed placeholder copy may ship: index.html, layouts, _data,
+# and blog pages must not contain "[Placeholder" (posts may quote it).
+for f in index.html _layouts/*.html _includes/*.html _data/*.yml blog/*.html; do
+  [ -f "$f" ] || continue
+  if grep -qi '\[placeholder' "$f"; then
+    fail_msg "$f: contains placeholder copy ([Placeholder ...)"
+  fi
+done
 
 if [ "$fail" -ne 0 ]; then
   exit 1
